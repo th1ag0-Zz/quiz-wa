@@ -5,7 +5,7 @@ import { Container, Content, ButtonContainer } from './styles';
 
 export const Confirmation: React.FC = () => {
 	const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-	const [name, setName] = useState('');
+	const [, setName] = useState('');
 
 	function validateTextInput(text: string) {
 		if (text) {

@@ -44,4 +44,8 @@ export const Content = styled.div`
 
 export const ButtonContainer = styled.div`
 	margin-top: 2rem;
+	height: 3rem;
+
+	display: flex;
+	align-items: center;
 `;

@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
+import { useQuestions } from '../../hooks/useQuestions';
 
 import { Container, Content, ButtonContainer } from './styles';
 
 export const Confirmation: React.FC = () => {
+	const navigate = useNavigate();
+	const { deleteQuestions } = useQuestions();
+
 	const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 	const [, setName] = useState('');
 
@@ -15,6 +21,16 @@ export const Confirmation: React.FC = () => {
 			setIsButtonDisabled(true);
 			setName('');
 		}
+	}
+
+	function startQuiz() {
+		navigate('/quiz');
+	}
+
+	function cancelAction() {
+		deleteQuestions();
+
+		navigate('/', { replace: true });
 	}
 
 	return (
@@ -34,7 +50,7 @@ export const Confirmation: React.FC = () => {
 
 				<ButtonContainer>
 					<Button
-						onClick={() => {}}
+						onClick={cancelAction}
 						variant='contained'
 						size='large'
 						color='error'
@@ -43,7 +59,7 @@ export const Confirmation: React.FC = () => {
 					</Button>
 
 					<Button
-						onClick={() => {}}
+						onClick={startQuiz}
 						variant='contained'
 						size='large'
 						disabled={isButtonDisabled}

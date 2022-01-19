@@ -15,6 +15,7 @@ export interface QuestionPros {
 interface QuestionContextsProps {
 	questions: QuestionPros[];
 	getQuestions: (amount: number) => Promise<void>;
+	deleteQuestions: () => void;
 }
 
 interface responseApiProps {
@@ -58,8 +59,14 @@ const QuestionsProvider: React.FC = ({ children }) => {
 		setQuestions(newQuetionsArray);
 	}
 
+	function deleteQuestions() {
+		setQuestions([]);
+	}
+
 	return (
-		<QuestionsContext.Provider value={{ questions, getQuestions }}>
+		<QuestionsContext.Provider
+			value={{ questions, getQuestions, deleteQuestions }}
+		>
 			{children}
 		</QuestionsContext.Provider>
 	);

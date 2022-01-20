@@ -35,6 +35,8 @@ export const CorrectResult = styled.div`
 	width: 100%;
 	padding: 1rem 1.5rem;
 	background-color: ${({ theme }) => theme.tertiary};
+	font-size: 1rem;
+	font-weight: bold;
 `;
 
 export const IncorrectResult = styled.div`
@@ -42,4 +44,6 @@ export const IncorrectResult = styled.div`
 	padding: 1rem 1.5rem;
 	background-color: ${({ theme }) => theme.attention};
 	margin-bottom: 0.4rem;
+	font-size: 1rem;
+	font-weight: bold;
 `;

@@ -28,6 +28,10 @@ export const Content = styled.div`
 		font-size: 2rem;
 		margin-bottom: 2rem;
 	}
+
+	& > p {
+		font-size: 1.1rem;
+	}
 `;
 
 export const ButtonContainer = styled.div`

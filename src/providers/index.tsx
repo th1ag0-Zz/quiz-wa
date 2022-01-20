@@ -5,11 +5,11 @@ import { MuiProvider } from './muiProvider';
 import { QuestionsProvider } from '../contexts/questionsContext';
 
 // usar useTheme depois
-import { dark } from '../themes';
+import { defaultTheme } from '../themes';
 
 export const Providers: React.FC = ({ children }) => {
 	return (
-		<ThemeProvider theme={dark}>
+		<ThemeProvider theme={defaultTheme}>
 			<MuiProvider>
 				<QuestionsProvider>{children}</QuestionsProvider>
 			</MuiProvider>

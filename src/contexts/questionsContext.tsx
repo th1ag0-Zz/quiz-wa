@@ -1,33 +1,40 @@
 import React, { useState, createContext } from 'react';
 
+import { FinalResultProps } from '../components/ResultsModal';
+
 import api from '../services/api';
 
 export interface QuestionPros {
-	category: string;
 	alternatives: string[];
 	correct_answer: string;
-	difficulty: string;
 	incorrect_answers: string[];
 	question: string;
-	type: string;
 }
 
 interface QuestionContextsProps {
 	questions: QuestionPros[];
 	getQuestions: (amount: number) => Promise<void>;
 	deleteQuestions: () => void;
+	saveQuestionsOnStorage: ({
+		playerName,
+		correctQuestionsNumber,
+		finalResult,
+	}: saveQuestionsOnStorageProps) => void;
 }
 
 interface responseApiProps {
 	response_code: number;
 	results: {
-		category: string;
 		correct_answer: string;
-		difficulty: string;
 		incorrect_answers: string[];
 		question: string;
-		type: string;
 	}[];
+}
+
+interface saveQuestionsOnStorageProps {
+	playerName: string;
+	correctQuestionsNumber: number;
+	finalResult: FinalResultProps[];
 }
 
 const QuestionsContext = createContext({} as QuestionContextsProps);
@@ -63,9 +70,49 @@ const QuestionsProvider: React.FC = ({ children }) => {
 		setQuestions([]);
 	}
 
+	function saveQuestionsOnStorage({
+		playerName,
+		correctQuestionsNumber,
+		finalResult,
+	}: saveQuestionsOnStorageProps) {
+		const quizzesAnswered = localStorage.getItem('@wa-quiz:quizzesAnswered');
+
+		if (quizzesAnswered) {
+			const newQuizzesAnswered = [
+				...JSON.parse(quizzesAnswered),
+				{
+					playerName,
+					score: `${correctQuestionsNumber}/${questions.length}`,
+					finalResult,
+				},
+			];
+
+			localStorage.setItem(
+				'@wa-quiz:quizzesAnswered',
+				JSON.stringify(newQuizzesAnswered),
+			);
+		} else {
+			localStorage.setItem(
+				'@wa-quiz:quizzesAnswered',
+				JSON.stringify([
+					{
+						playerName,
+						score: `${correctQuestionsNumber}/${questions.length}`,
+						finalResult,
+					},
+				]),
+			);
+		}
+	}
+
 	return (
 		<QuestionsContext.Provider
-			value={{ questions, getQuestions, deleteQuestions }}
+			value={{
+				questions,
+				getQuestions,
+				deleteQuestions,
+				saveQuestionsOnStorage,
+			}}
 		>
 			{children}
 		</QuestionsContext.Provider>

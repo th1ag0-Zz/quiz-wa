@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ interface FinalResultProps {
 export const Quiz: React.FC = () => {
 	const playerName = window.location.search.slice(12);
 	const navigate = useNavigate();
-	const { questions, deleteQuestions } = useQuestions();
+	const { questions, deleteQuestions, saveQuestionsOnStorage } = useQuestions();
 
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const [alternativeSelected, setAlternativeSelected] = useState('');
@@ -78,6 +78,16 @@ export const Quiz: React.FC = () => {
 
 		navigate('/', { replace: true });
 	}
+
+	useEffect(() => {
+		if (isQuizFinished) {
+			saveQuestionsOnStorage({
+				playerName,
+				correctQuestionsNumber,
+				finalResult,
+			});
+		}
+	}, [isQuizFinished]);
 
 	return (
 		<Container>

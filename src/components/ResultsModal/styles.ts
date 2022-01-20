@@ -16,6 +16,10 @@ export const Container = styled.div`
 	padding: 2rem;
 
 	overflow-y: scroll;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
 export const ResultContent = styled.div`

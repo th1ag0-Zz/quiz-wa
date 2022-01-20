@@ -8,7 +8,7 @@ import {
 	IncorrectResult,
 } from './styles';
 
-interface FinalResultProps {
+export interface FinalResultProps {
 	questionTitle: string;
 	isCorrect: boolean;
 	alternativeSelected: string;

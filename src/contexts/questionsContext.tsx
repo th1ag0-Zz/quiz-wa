@@ -46,6 +46,27 @@ const QuestionsProvider: React.FC = ({ children }) => {
 		return inputArray.sort(() => Math.random() - 0.5);
 	}
 
+	function convertQuestions(questions: QuestionPros[]) {
+		const parser = new DOMParser();
+
+		const questionsConverted = questions.map(
+			({ question, correct_answer, incorrect_answers, alternatives }) => ({
+				question: parser.parseFromString(question, 'text/html').body.innerText,
+				correct_answer: parser.parseFromString(correct_answer, 'text/html').body
+					.innerText,
+				incorrect_answers: incorrect_answers.map(
+					incorrect =>
+						parser.parseFromString(incorrect, 'text/html').body.innerText,
+				),
+				alternatives: alternatives.map(
+					alternative =>
+						parser.parseFromString(alternative, 'text/html').body.innerText,
+				),
+			}),
+		);
+		return questionsConverted;
+	}
+
 	async function getQuestions(amount: number) {
 		const { data } = await api.get<responseApiProps>('/', {
 			params: { amount },
@@ -63,7 +84,9 @@ const QuestionsProvider: React.FC = ({ children }) => {
 			};
 		});
 
-		setQuestions(newQuetionsArray);
+		const questionsConverted = convertQuestions(newQuetionsArray);
+
+		setQuestions(questionsConverted);
 	}
 
 	function deleteQuestions() {

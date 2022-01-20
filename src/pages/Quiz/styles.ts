@@ -37,4 +37,8 @@ export const ButtonContainer = styled.div`
 
 	display: flex;
 	justify-content: center;
+
+	button {
+		margin: 0 0.5rem;
+	}
 `;

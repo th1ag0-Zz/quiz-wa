@@ -11,7 +11,7 @@ export const Confirmation: React.FC = () => {
 	const { deleteQuestions } = useQuestions();
 
 	const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-	const [, setName] = useState('');
+	const [name, setName] = useState('');
 
 	function validateTextInput(text: string) {
 		if (text) {
@@ -24,7 +24,7 @@ export const Confirmation: React.FC = () => {
 	}
 
 	function startQuiz() {
-		navigate('/quiz');
+		navigate(`/quiz?playerName=${name}`);
 	}
 
 	function cancelAction() {

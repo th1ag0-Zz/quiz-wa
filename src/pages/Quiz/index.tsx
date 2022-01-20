@@ -87,6 +87,7 @@ export const Quiz: React.FC = () => {
 				finalResult,
 			});
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isQuizFinished]);
 
 	return (
